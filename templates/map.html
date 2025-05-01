@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Story Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="{% static 'stories/style.css' %}" />
+    <!-- Removed broken/unused leaflet.terrain, leaflet-3d, leaflet.glify imports -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{% static 'stories/map.js' %}"></script>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="modal-overlay"></div>
+    <div class="modal" id="story-modal">
+        <span class="close" id="modal-close">×</span>
+        <form id="story-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" id="modal-lat" name="latitude">
+            <input type="hidden" id="modal-lng" name="longitude">
+            <button type="submit">Submit Story</button>
+        </form>
+    </div>
+
+    <div id="story-board-heading">
+        <h2>Recent Stories</h2>
+        <p>Read some of the most recently added stories which tell tales of our region.</p>
+    </div>
+    <div id="story-list">
+        {% for story in recent_stories %}
+            <div class="story-card" data-latitude="{{ story.latitude }}" data-longitude="{{ story.longitude }}">
+                <h3>{{ story.name }}</h3>
+                <p><strong>Date:</strong> {{ story.date }}</p>
+                <p><strong>Indicator:</strong> {{ story.indicator }}</p>
+                <p><strong>Background:</strong> {{ story.background }}</p>
+                <p><strong>Story:</strong> {{ story.story }}</p>
+                <button class="zoom-button">Zoom to Pin</button>
+            </div>
+        {% empty %}
+            <p>No stories available.</p>
+        {% endfor %}
+    </div>
+    <div id="read-overlay" style="display:none;"></div>
+    <div class="modal" id="read-modal" style="display:none; position:absolute; min-width:250px; max-width:350px; z-index:10000;">
+        <span class="close" id="read-close">×</span>
+        <h2 id="read-modal-title"></h2>
+        <div><strong>Background:</strong> <span id="read-modal-background"></span></div>
+        <div><strong>Story:</strong> <p id="read-modal-story"></p></div>
+        <!-- Optionally add indicator/date here if you want -->
+    </div>
+</body>
+</html>

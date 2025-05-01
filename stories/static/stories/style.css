@@ -1,0 +1,214 @@
+html, body, #map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Fallback to Arial and sans-serif */
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold; /* Make headings bold */
+    color: rgba(255,255,255,1); /* White color for headings */
+    margin: 0; /* Remove default margins */
+}
+
+h1 {
+    font-size: 2.5em; /* Size for main headings */
+}
+
+h2 {
+    font-size: 2em; /* Size for subheadings */
+}
+
+h3 {
+    font-size: 1.75em; /* Size for smaller subheadings */
+}
+
+p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1em; /* Normal text size */
+    color: rgba(255,255,255,1); /* White color for body */
+    line-height: 1.5; /* Improve readability */
+    margin: 0 0 10px; /* Add margin below paragraphs */
+}
+
+#story-form {
+    color: white; /* Text color for the form */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Font for the form */
+}
+
+#story-form label {
+    font-weight: bold; /* Bold labels */
+    color: white; /* Dark gray for labels */
+    margin-bottom: 5px; /* Space below the label */
+    display: block; /* Make labels block elements */
+}
+
+#story-form input[type="text"],
+#story-form textarea {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    color: white; /* Change this to your desired text color */
+    background-color: rgba(0,0,0,0.5); /* Change this to your desired background color */
+}
+
+#story-form button {
+    background-color: white; /* Button background color */
+    color: black; /* Button text color */
+    padding: 10px 15px; /* Button padding */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+#story-form button:hover {
+    background-color: rgba(0,0,0,0.5); /* Darker blue on hover */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+#map { width: 100vw; height: 100vh; }
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    z-index: 1001;
+    display: none;
+}
+.modal.active { display: block; }
+.modal .close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 1.3em;
+}
+#modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: none;
+}
+#modal-overlay.active { display: block; }
+
+.story-form {
+    color: black;
+}
+
+#story-board-heading {
+    position: fixed; /* Fixes the box in place */
+    width: 483px; /* Set width for the card container */
+    top: 20px; /* Distance from the top of the viewport */
+    right: 20px; /* Distance from the right of the viewport */
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent white background */
+    padding: 15px; /* Padding inside the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+#story-list {
+    display: block !important; /* Keep display for testing */
+    position: absolute; /* Adjust positioning as needed */
+    top: 150px;
+    right: 20px;
+    width: 500px; /* Set width for the card container */
+    height: calc(100% - 200px); /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    background: transparent; /* Transparent background */
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 99999;
+}
+
+.story-card {
+    overflow: visible; /* Corrected from ovrerflow */
+    color: white;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.65); /* Black with 65% opacity */
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+.story-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.story-card p {
+    margin: 5px 0;
+}
+
+.book-icon {
+    font-size: 24px; /* Adjust font size */
+    text-align: center; /* Center the emoji */
+}
+
+.pin-popup {
+    position: absolute;
+    min-width: 200px;
+    max-width: 300px;
+    background: #fff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 10000;
+    padding: 16px 16px 8px 16px;
+    font-size: 1em;
+    transition: opacity 0.2s;
+}
+.pin-popup .close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+/* --- READ MODAL POPUP (PIN POPUP) STYLES --- */
+#read-modal {
+    background: rgbs(0,0,0,0.65);
+    color: white;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    min-width: 250px;
+    max-width: 350px;
+    padding: 16px 16px 8px 16px;
+    font-size: 1em;
+    z-index: 10000;
+    display: none;
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+#read-modal .close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 1.6em;
+    color: white;
+}
+#read-overlay {
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: none;
+}
+
+/* --- END READ MODAL POPUP STYLES --- */
